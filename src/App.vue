@@ -1,5 +1,6 @@
 <template>
   <Title title="Catatan Pengeluaran" />
+  <FormPengeluaran />
   <ListPengeluaran
     v-if="dataPengeluaran.length > 0"
     :dataPengeluaran="dataPengeluaran"
@@ -9,11 +10,13 @@
 <script>
 import Title from "./components/Title";
 import ListPengeluaran from "./components/ListPengeluaran";
+import FormPengeluaran from "./components/FormPengeluaran";
 export default {
   name: "App",
   components: {
     Title,
     ListPengeluaran,
+    FormPengeluaran,
   },
   data() {
     return {
