@@ -28,6 +28,9 @@ export default {
         nominal: this.pengeluaran,
         keterangan: this.keterangan,
       });
+      this.pengeluaran = null;
+      this.keterangan = null;
+      document.getElementById("pengeluaran").focus();
     },
   },
 };
