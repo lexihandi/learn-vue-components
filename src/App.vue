@@ -1,6 +1,6 @@
 <template>
   <Title title="Catatan Pengeluaran" />
-  <FormPengeluaran />
+  <FormPengeluaran @entry-pengeluaran="entryPengeluaran($event)" />
   <ListPengeluaran
     v-if="dataPengeluaran.length > 0"
     :dataPengeluaran="dataPengeluaran"
@@ -26,6 +26,11 @@ export default {
         { nominal: 15000, keterangan: "Makan Pagi" },
       ],
     };
+  },
+  methods: {
+    entryPengeluaran(event) {
+      this.dataPengeluaran.push(event);
+    },
   },
 };
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <form class="form-pengeluaran">
+  <form class="form-pengeluaran" @submit.prevent="catat">
     <div>
       <label>Pengeluaran</label>
-      <input type="number" id="pengeluaran" />
+      <input v-model="pengeluaran" type="number" id="pengeluaran" />
     </div>
     <div>
       <label>Keterangan</label>
-      <input type="text" id="keterangan" />
+      <input v-model="keterangan" type="text" id="keterangan" />
     </div>
     <div>
       <button>Catat</button>
@@ -15,7 +15,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      pengeluaran: null,
+      keterangan: null,
+    };
+  },
+  methods: {
+    catat() {
+      this.$emit("entry-pengeluaran", {
+        nominal: this.pengeluaran,
+        keterangan: this.keterangan,
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
