@@ -10,6 +10,7 @@
 import Title from "./components/Title";
 import ListPengeluaran from "./components/ListPengeluaran";
 import FormPengeluaran from "./components/FormPengeluaran";
+import { ref, computed, watch } from "vue";
 export default {
   name: "App",
   components: {
@@ -17,40 +18,35 @@ export default {
     ListPengeluaran,
     FormPengeluaran,
   },
-  data() {
-    return {
-      dataPengeluaran: [
-        { nominal: 20000, keterangan: "Makan Siang" },
-        { nominal: 20000, keterangan: "Makan Malam" },
-        { nominal: 15000, keterangan: "Makan Pagi" },
-      ],
-      warning: false,
-    };
-  },
-  methods: {
-    entryPengeluaran(event) {
-      this.dataPengeluaran.push(event);
-    },
-  },
-  computed: {
-    showList: function () {
-      return this.dataPengeluaran.length > 0;
-    },
-    totalPengeluaran: function () {
-      return this.dataPengeluaran.reduce(
+  setup() {
+    const dataPengeluaran = ref([]);
+    const warning = ref(false);
+
+    function entryPengeluaran(event) {
+      dataPengeluaran.value.push(event);
+    }
+
+    const showList = computed(() => dataPengeluaran.value.length > 0);
+    const totalPengeluaran = computed(() =>
+      dataPengeluaran.value.reduce(
         (accum, item) => accum + parseInt(item.nominal),
         0
-      );
-    },
-  },
-  watch: {
-    totalPengeluaran: function (val) {
-      if (val > 100000) {
-        this.warning = true;
-      } else {
-        this.warning = false;
+      )
+    );
+
+    watch(totalPengeluaran, (newValue) => {
+      if (newValue > 100000) {
+        warning.value = true;
       }
-    },
+    });
+
+    return {
+      dataPengeluaran,
+      warning,
+      entryPengeluaran,
+      showList,
+      totalPengeluaran,
+    };
   },
 };
 </script>
